@@ -6,6 +6,10 @@ Live site: [fuad71.me](https://fuad71.me/)
 
 A single-page portfolio for a backend software engineer, designed around the tools of the trade — a typing terminal hero, a `git log`–styled experience timeline, and section headers styled like API routes.
 
+## Image for Profile
+
+Path: static/fuad.png
+
 ## Preview
 
 Open `index.html` in any browser, or visit the live site above.
