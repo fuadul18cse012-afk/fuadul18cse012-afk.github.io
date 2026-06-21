@@ -9,6 +9,7 @@ A single-page portfolio for a backend software engineer, designed around the too
 ## Image for Profile
 
 Path: static/fuad.png
+have to add this image into profile
 
 ## Preview
 
