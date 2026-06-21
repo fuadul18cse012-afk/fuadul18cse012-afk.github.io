@@ -4,156 +4,1105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fuadul Hasan | Portfolio</title>
+    <title>Fuadul Hasan — Backend Software Engineer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <style>
+        :root {
+            --bg: #0e1217;
+            --bg-soft: #11161d;
+            --surface: #161c24;
+            --surface-2: #1b222b;
+            --border: #262e38;
+            --border-hover: #3a4552;
+            --text: #e7ecf2;
+            --text-muted: #8d99a8;
+            --text-dim: #5a6573;
+            --amber: #ffb454;
+            --amber-soft: rgba(255, 180, 84, 0.12);
+            --green: #7ee787;
+            --green-soft: rgba(126, 231, 135, 0.12);
+            --red: #ff6b6b;
+            --mono: 'JetBrains Mono', ui-monospace, monospace;
+            --sans: 'Inter', system-ui, sans-serif;
+            --maxw: 880px;
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            background: #f4f6f9;
-            color: #333;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        header {
-            background: #0d6efd;
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        section {
-            padding: 30px;
-            max-width: 1000px;
-            margin: auto;
-            background: white;
-            margin-top: 20px;
-            border-radius: 10px;
-        }
-
-        h2 {
-            border-bottom: 2px solid #eee;
-            padding-bottom: 5px;
-        }
-
-        .item {
-            margin-bottom: 20px;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
-            background: #222;
-            color: white;
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         a {
-            color: #0d6efd;
+            color: inherit;
+        }
+
+        ::selection {
+            background: var(--amber-soft);
+            color: var(--amber);
+        }
+
+        /* ---------- background texture ---------- */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+        }
+
+        /* ---------- navbar ---------- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(14, 18, 23, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--mono);
+            font-weight: 600;
+            font-size: 15px;
             text-decoration: none;
+            color: var(--text);
+            letter-spacing: -0.02em;
+        }
+
+        .logo .accent {
+            color: var(--amber);
+        }
+
+        .logo .dim {
+            color: var(--text-dim);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 4px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            font-family: var(--mono);
+            font-size: 13px;
+            text-decoration: none;
+            color: var(--text-muted);
+            padding: 7px 12px;
+            border-radius: 6px;
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+            background: var(--surface-2);
+        }
+
+        .nav-links a.active {
+            color: var(--amber);
+            background: var(--amber-soft);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            width: 36px;
+            height: 36px;
+            color: var(--text);
+            cursor: pointer;
+            font-family: var(--mono);
+            font-size: 16px;
+        }
+
+        /* ---------- hero ---------- */
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: 72px 24px 40px;
+        }
+
+        .hero-inner {
+            max-width: var(--maxw);
+            margin: 0 auto;
+        }
+
+        .hero-tag {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--green);
+            margin: 0 0 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-tag .pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 0 0 rgba(126, 231, 135, 0.6);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(126, 231, 135, 0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 8px rgba(126, 231, 135, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(126, 231, 135, 0);
+            }
+        }
+
+        .terminal-window {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.02);
+        }
+
+        .terminal-titlebar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--surface-2);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ff5f56;
+        }
+
+        .dot-yellow {
+            background: #ffbd2e;
+        }
+
+        .dot-green {
+            background: #27c93f;
+        }
+
+        .terminal-title {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-left: 8px;
+        }
+
+        .terminal-body {
+            padding: 28px 24px 32px;
+            font-family: var(--mono);
+            font-size: 15px;
+            min-height: 220px;
+        }
+
+        .term-line {
+            margin: 0 0 4px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .term-prompt {
+            color: var(--green);
+            white-space: nowrap;
+        }
+
+        .term-cmd {
+            color: var(--text);
+        }
+
+        .term-out {
+            color: var(--amber);
+            font-weight: 600;
+            padding-left: 0;
+            margin: 2px 0 14px;
+        }
+
+        .term-out.muted {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 14px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 17px;
+            background: var(--amber);
+            vertical-align: text-bottom;
+            animation: blink 1s steps(1) infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--mono);
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--amber);
+            color: #1a1306;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #ffc579;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            background: var(--surface-2);
+        }
+
+        /* ---------- sections ---------- */
+        main {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 56px 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 14px;
+            text-transform: none;
+        }
+
+        .eyebrow .method {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .eyebrow .status {
+            margin-left: auto;
+            color: var(--green);
+            background: var(--green-soft);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        .section h2 {
+            font-family: var(--mono);
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin: 0 0 22px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-text {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 62ch;
+        }
+
+        .about-text b {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ---------- git log experience ---------- */
+        .git-log {
+            position: relative;
+        }
+
+        .commit {
+            position: relative;
+            padding-left: 28px;
+            padding-bottom: 36px;
+        }
+
+        .commit:last-child {
+            padding-bottom: 0;
+        }
+
+        .commit::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 6px;
+            bottom: -6px;
+            width: 1px;
+            background: var(--border);
+        }
+
+        .commit:last-child::before {
+            display: none;
+        }
+
+        .commit-dot {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 2px solid var(--text-dim);
+        }
+
+        .commit.head .commit-dot {
+            border-color: var(--amber);
+            background: var(--amber);
+            box-shadow: 0 0 0 4px var(--amber-soft);
+        }
+
+        .commit-hash {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--amber);
+            margin: 0 0 6px;
+        }
+
+        .head-tag {
+            color: var(--green);
+            background: var(--green-soft);
+            padding: 1px 7px;
+            border-radius: 4px;
+            font-size: 11px;
+            margin-left: 6px;
+        }
+
+        .commit-meta {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--text-dim);
+            margin: 0 0 2px;
+        }
+
+        .commit-subject {
+            font-size: 17px;
+            font-weight: 600;
+            margin: 14px 0 10px;
+            color: var(--text);
+        }
+
+        .commit ul {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--text-muted);
+        }
+
+        .commit li {
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        /* ---------- projects ---------- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--amber);
+            box-shadow: 0 16px 40px -20px rgba(255, 180, 84, 0.25);
+        }
+
+        .project-path {
+            font-family: var(--mono);
+            font-size: 11.5px;
+            color: var(--text-dim);
+            margin: 0 0 10px;
+        }
+
+        .project-card h3 {
+            margin: 0 0 8px;
+            font-size: 16.5px;
+        }
+
+        .project-card p.desc {
+            color: var(--text-muted);
+            font-size: 14.5px;
+            margin: 0 0 16px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tags span {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+
+        /* ---------- skills ---------- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .skill-group h3 {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin: 0 0 12px;
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            font-family: var(--mono);
+            font-size: 13px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 7px;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .chip:hover {
+            border-color: var(--amber);
+            color: var(--amber);
+        }
+
+        /* ---------- stats / CP ---------- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--text-dim);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .stat-card.cf {
+            border-left-color: #5cabe2;
+        }
+
+        .stat-card.lc {
+            border-left-color: var(--amber);
+        }
+
+        .stat-card.cc {
+            border-left-color: #b97cf0;
+        }
+
+        .stat-number {
+            font-family: var(--mono);
+            font-size: 30px;
+            font-weight: 700;
+            margin: 0 0 4px;
+            color: var(--text);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin: 0;
+        }
+
+        /* ---------- education ---------- */
+        .edu-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+
+        .edu-card h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+        }
+
+        .edu-card p {
+            margin: 4px 0;
+            color: var(--text-muted);
+        }
+
+        .cgpa span {
+            color: var(--amber);
+            font-family: var(--mono);
+            font-weight: 700;
+        }
+
+        /* ---------- footer ---------- */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px 40px;
+            text-align: center;
+            background: var(--bg-soft);
+        }
+
+        .status-line {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 0 0 10px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        .status-line .ok {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .footer p.copyright {
+            color: var(--text-dim);
+            font-size: 13px;
+            margin: 0 0 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--amber);
+        }
+
+        /* ---------- responsive ---------- */
+        @media (max-width: 720px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: var(--bg-soft);
+                border-bottom: 1px solid var(--border);
+                padding: 8px;
+                display: none;
+                gap: 2px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .terminal-body {
+                font-size: 13.5px;
+                padding: 22px 16px 26px;
+            }
+
+            .hero {
+                padding: 48px 16px 28px;
+            }
+
+            .section {
+                padding: 40px 16px;
+            }
+
+            .section h2 {
+                font-size: 19px;
+            }
+
+            .stat-number {
+                font-size: 26px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
         }
     </style>
 </head>
 
 <body>
+    <h1 class="sr-only">Fuadul Hasan — Software Engineer specializing in backend development, scalable APIs, and system
+        design</h1>
 
-    <header>
-        <h1>Fuadul Hasan</h1>
-        <p>Software Engineer</p>
-        <p>
-            📧 fuadul202@gmail.com |
-            📞 +8801754726519
-        </p>
+    <div class="grid-overlay" aria-hidden="true"></div>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="#top" class="logo">fuadul<span class="accent">@</span>dev<span class="dim">:~$</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">≡</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" data-route>/about</a></li>
+                <li><a href="#experience" data-route>/experience</a></li>
+                <li><a href="#projects" data-route>/projects</a></li>
+                <li><a href="#skills" data-route>/skills</a></li>
+                <li><a href="#cp" data-route>/competitive</a></li>
+                <li><a href="#education" data-route>/education</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" id="top">
+        <div class="hero-inner">
+            <p class="hero-tag" aria-hidden="true"><span class="pulse-dot"></span>status: open to opportunities</p>
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span
+                        class="dot dot-green"></span>
+                    <span class="terminal-title">guest@portfolio — bash — 80×24</span>
+                </div>
+                <div class="terminal-body" id="termBody" aria-hidden="true"></div>
+            </div>
+            <div class="hero-actions">
+                <a href="mailto:fuadul202@gmail.com" class="btn btn-primary">→ send_email</a>
+                <a href="tel:+8801754726519" class="btn btn-secondary">→ call_me</a>
+            </div>
+        </div>
     </header>
 
-    <section>
-        <h2>About Me</h2>
-        <p>
-            Software Engineer with experience in backend development, scalable APIs, and system design.
-            Skilled in Go, Java, Python, and modern backend technologies.
-        </p>
-    </section>
+    <main>
 
-    <section>
-        <h2>Experience</h2>
+        <section id="about" class="section reveal">
+            <p class="eyebrow"><span class="method">GET</span> /about <span class="status">200 OK</span></p>
+            <h2>About</h2>
+            <p class="about-text">
+                Software Engineer with experience in <b>backend development</b>, <b>scalable APIs</b>, and <b>system
+                    design</b>.
+                Skilled in Go, Java, and Python — comfortable taking a service from a rough spec to something that holds
+                up
+                under real traffic.
+            </p>
+        </section>
 
-        <div class="item">
-            <h3>Software Engineer - TigerIT Bangladesh Ltd</h3>
-            <p><i>Apr 2025 - Present</i></p>
-            <ul>
-                <li>Developed scalable backend APIs using Go</li>
-                <li>Implemented RBAC, ACL, and SSO systems</li>
-                <li>Integrated ML APIs and Redis caching optimization</li>
-            </ul>
+        <section id="experience" class="section reveal">
+            <p class="eyebrow"><span class="method">GET</span> /experience <span class="status">200 OK</span></p>
+            <h2>Experience</h2>
+            <div class="git-log">
+                <div class="commit head">
+                    <span class="commit-dot"></span>
+                    <p class="commit-hash">commit 7f3a9c1<span class="head-tag">HEAD → main</span></p>
+                    <p class="commit-meta">Author: Fuadul Hasan</p>
+                    <p class="commit-meta">Date: Apr 2025 — Present</p>
+                    <h3 class="commit-subject">Software Engineer · TigerIT Bangladesh Ltd</h3>
+                    <ul>
+                        <li>Developed scalable backend APIs using Go</li>
+                        <li>Implemented RBAC, ACL, and SSO systems</li>
+                        <li>Integrated ML APIs and Redis caching optimization</li>
+                    </ul>
+                </div>
+                <div class="commit">
+                    <span class="commit-dot"></span>
+                    <p class="commit-hash">commit 2b8e451</p>
+                    <p class="commit-meta">Author: Fuadul Hasan</p>
+                    <p class="commit-meta">Date: Apr 2024 — Mar 2025</p>
+                    <h3 class="commit-subject">Software Engineer I · Brain Station-23</h3>
+                    <ul>
+                        <li>Worked on resource management systems</li>
+                        <li>Built ML-based features like video-to-text</li>
+                        <li>Developed internal employee management tools</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section reveal">
+            <p class="eyebrow"><span class="method">GET</span> /projects <span class="status">200 OK</span></p>
+            <h2>Projects</h2>
+            <div class="project-grid">
+                <article class="project-card">
+                    <p class="project-path">/projects/employee-tracking</p>
+                    <h3>Employee Tracking System</h3>
+                    <p class="desc">Role-based task and project management system.</p>
+                    <div class="tags"><span>Go</span><span>PostgreSQL</span></div>
+                </article>
+                <article class="project-card">
+                    <p class="project-path">/projects/hotel-reservation</p>
+                    <h3>Hotel Reservation System</h3>
+                    <p class="desc">Room booking system with admin dashboard and email notifications.</p>
+                    <div class="tags"><span>Backend</span><span>Notifications</span></div>
+                </article>
+                <article class="project-card">
+                    <p class="project-path">/projects/eco-sync</p>
+                    <h3>Eco Sync — Waste Management</h3>
+                    <p class="desc">Smart waste management platform with role-based control.</p>
+                    <div class="tags"><span>RBAC</span><span>Platform</span></div>
+                </article>
+            </div>
+        </section>
+
+        <section id="skills" class="section reveal">
+            <p class="eyebrow"><span class="method">GET</span> /skills <span class="status">200 OK</span></p>
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <h3>Languages</h3>
+                    <div class="chip-row">
+                        <span class="chip">Go</span><span class="chip">Python</span><span class="chip">Java</span><span
+                            class="chip">JavaScript</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h3>Frameworks</h3>
+                    <div class="chip-row">
+                        <span class="chip">Spring Boot</span><span class="chip">Node.js</span><span
+                            class="chip">Express</span><span class="chip">React</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h3>Databases</h3>
+                    <div class="chip-row">
+                        <span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span
+                            class="chip">MongoDB</span><span class="chip">Redis</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h3>Tools</h3>
+                    <div class="chip-row">
+                        <span class="chip">Git</span><span class="chip">MinIO</span><span class="chip">Crontab</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cp" class="section reveal">
+            <p class="eyebrow"><span class="method">GET</span> /competitive-programming <span class="status">200
+                    OK</span></p>
+            <h2>Competitive Programming</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p class="stat-number" data-target="4000" data-suffix="+">0</p>
+                    <p class="stat-label">Problems Solved</p>
+                </div>
+                <div class="stat-card cf">
+                    <p class="stat-number" data-target="1612">0</p>
+                    <p class="stat-label">Codeforces · Max Rating</p>
+                </div>
+                <div class="stat-card lc">
+                    <p class="stat-number" data-target="1807">0</p>
+                    <p class="stat-label">LeetCode · Max Rating</p>
+                </div>
+                <div class="stat-card cc">
+                    <p class="stat-number" data-target="1806">0</p>
+                    <p class="stat-label">CodeChef · Max Rating</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section reveal">
+            <p class="eyebrow"><span class="method">GET</span> /education <span class="status">200 OK</span></p>
+            <h2>Education</h2>
+            <div class="edu-card">
+                <h3>B.Sc. in Computer Science &amp; Engineering</h3>
+                <p>Gopalganj Science and Technology University</p>
+                <p class="cgpa">CGPA: <span>3.28</span> / 4.00</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p class="status-line"><span class="status-dot"></span>$ echo $STATUS → <span class="ok">online</span></p>
+        <p class="copyright">© 2026 Fuadul Hasan</p>
+        <div class="footer-links">
+            <a href="mailto:fuadul202@gmail.com">fuadul202@gmail.com</a>
+            <a href="tel:+8801754726519">+880 1754 726519</a>
         </div>
-
-        <div class="item">
-            <h3>Software Engineer I - Brain Station-23</h3>
-            <p><i>Apr 2024 - Mar 2025</i></p>
-            <ul>
-                <li>Worked on resource management systems</li>
-                <li>Built ML-based features like video-to-text</li>
-                <li>Developed internal employee management tools</li>
-            </ul>
-        </div>
-
-    </section>
-
-    <section>
-        <h2>Projects</h2>
-
-        <div class="item">
-            <h3>Employee Tracking System</h3>
-            <p>Role-based task and project management system using Go and PostgreSQL.</p>
-        </div>
-
-        <div class="item">
-            <h3>Hotel Reservation System</h3>
-            <p>Room booking system with admin dashboard and email notifications.</p>
-        </div>
-
-        <div class="item">
-            <h3>Eco Sync - Waste Management</h3>
-            <p>Smart waste management platform with role-based control.</p>
-        </div>
-
-    </section>
-
-    <section>
-        <h2>Technical Skills</h2>
-        <ul>
-            <li><b>Languages:</b> Go, Python, Java, JavaScript</li>
-            <li><b>Frameworks:</b> Spring Boot, Node.js, Express, React</li>
-            <li><b>Databases:</b> MySQL, PostgreSQL, MongoDB, Redis</li>
-            <li><b>Tools:</b> Git, MinIO, Crontab</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Competitive Programming</h2>
-        <ul>
-            <li>4000+ problems solved</li>
-            <li>Codeforces: Max Rating 1612</li>
-            <li>LeetCode: Max Rating 1807</li>
-            <li>CodeChef: Max Rating 1806</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Education</h2>
-        <p>
-            B.Sc. in Computer Science & Engineering<br>
-            Gopalganj Science and Technology University<br>
-            CGPA: 3.28 / 4.00
-        </p>
-    </section>
-
-    <footer>
-        <p>© 2026 Fuadul Hasan</p>
     </footer>
+
+    <script>
+        (function () {
+            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            /* ---- mobile nav toggle ---- */
+            var navToggle = document.getElementById('navToggle');
+            var navLinks = document.getElementById('navLinks');
+            navToggle.addEventListener('click', function () {
+                navLinks.classList.toggle('open');
+            });
+            navLinks.querySelectorAll('a').forEach(function (a) {
+                a.addEventListener('click', function () { navLinks.classList.remove('open'); });
+            });
+
+            /* ---- active route highlighting ---- */
+            var routeLinks = document.querySelectorAll('[data-route]');
+            var routeSections = Array.from(routeLinks).map(function (l) {
+                return document.getElementById(l.getAttribute('href').slice(1));
+            }).filter(Boolean);
+
+            var navObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        routeLinks.forEach(function (l) { l.classList.remove('active'); });
+                        var match = document.querySelector('[data-route][href="#' + entry.target.id + '"]');
+                        if (match) match.classList.add('active');
+                    }
+                });
+            }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+            routeSections.forEach(function (s) { navObserver.observe(s); });
+
+            /* ---- scroll reveal ---- */
+            var revealEls = document.querySelectorAll('.reveal');
+            var revealObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            revealEls.forEach(function (el) { revealObserver.observe(el); });
+
+            /* ---- count-up stats ---- */
+            var statEls = document.querySelectorAll('.stat-number');
+            var statObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    var el = entry.target;
+                    var target = parseInt(el.getAttribute('data-target'), 10);
+                    var suffix = el.getAttribute('data-suffix') || '';
+                    if (reduced) {
+                        el.textContent = target + suffix;
+                    } else {
+                        var start = null;
+                        var duration = 1100;
+                        function step(ts) {
+                            if (!start) start = ts;
+                            var progress = Math.min((ts - start) / duration, 1);
+                            var eased = 1 - Math.pow(1 - progress, 3);
+                            el.textContent = Math.round(eased * target) + suffix;
+                            if (progress < 1) requestAnimationFrame(step);
+                        }
+                        requestAnimationFrame(step);
+                    }
+                    statObserver.unobserve(el);
+                });
+            }, { threshold: 0.4 });
+            statEls.forEach(function (el) { statObserver.observe(el); });
+
+            /* ---- terminal typing sequence ---- */
+            var termBody = document.getElementById('termBody');
+            var lines = [
+                { type: 'cmd', text: 'whoami' },
+                { type: 'out', text: 'Fuadul Hasan' },
+                { type: 'cmd', text: 'cat role.txt' },
+                { type: 'out', text: 'Software Engineer — Backend Systems' },
+                { type: 'cmd', text: './contact.sh --show' },
+                { type: 'out', text: 'email   fuadul202@gmail.com', muted: true },
+                { type: 'out', text: 'phone   +880 1754 726519', muted: true }
+            ];
+
+            function renderStatic() {
+                var html = '';
+                lines.forEach(function (l) {
+                    if (l.type === 'cmd') {
+                        html += '<p class="term-line"><span class="term-prompt">$</span><span class="term-cmd">' + l.text + '</span></p>';
+                    } else {
+                        html += '<p class="term-out' + (l.muted ? ' muted' : '') + '">' + l.text + '</p>';
+                    }
+                });
+                html += '<p class="term-line"><span class="term-prompt">$</span><span class="cursor"></span></p>';
+                termBody.innerHTML = html;
+            }
+
+            function typeSequence() {
+                var i = 0;
+                function next() {
+                    if (i >= lines.length) {
+                        var finalP = document.createElement('p');
+                        finalP.className = 'term-line';
+                        finalP.innerHTML = '<span class="term-prompt">$</span><span class="cursor"></span>';
+                        termBody.appendChild(finalP);
+                        return;
+                    }
+                    var l = lines[i];
+                    if (l.type === 'cmd') {
+                        var p = document.createElement('p');
+                        p.className = 'term-line';
+                        var promptSpan = document.createElement('span');
+                        promptSpan.className = 'term-prompt';
+                        promptSpan.textContent = '$';
+                        var cmdSpan = document.createElement('span');
+                        cmdSpan.className = 'term-cmd';
+                        p.appendChild(promptSpan);
+                        p.appendChild(cmdSpan);
+                        termBody.appendChild(p);
+                        var ci = 0;
+                        var typer = setInterval(function () {
+                            cmdSpan.textContent += l.text[ci];
+                            ci++;
+                            if (ci >= l.text.length) {
+                                clearInterval(typer);
+                                i++;
+                                setTimeout(next, 180);
+                            }
+                        }, 38);
+                    } else {
+                        var op = document.createElement('p');
+                        op.className = 'term-out' + (l.muted ? ' muted' : '');
+                        op.textContent = l.text;
+                        termBody.appendChild(op);
+                        i++;
+                        setTimeout(next, 220);
+                    }
+                }
+                next();
+            }
+
+            if (reduced) {
+                renderStatic();
+            } else {
+                typeSequence();
+            }
+        })();
+    </script>
 
 </body>
 
