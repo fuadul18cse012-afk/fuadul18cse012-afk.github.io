@@ -104,6 +104,26 @@
             justify-content: space-between;
         }
 
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--border);
+            flex-shrink: 0;
+            transition: border-color 0.2s ease;
+        }
+
+        .avatar:hover {
+            border-color: var(--amber);
+        }
+
         .logo {
             font-family: var(--mono);
             font-weight: 600;
@@ -777,7 +797,10 @@
 
     <nav class="navbar">
         <div class="nav-inner">
-            <a href="#top" class="logo">fuad<span class="accent">@</span>me<span class="dim">:~$</span></a>
+            <div class="brand">
+                <img src="static/fuad.png" alt="Fuadul Hasan" class="avatar">
+                <a href="#top" class="logo">fuad<span class="accent">@</span>me<span class="dim">:~$</span></a>
+            </div>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">≡</button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about" data-route>/about</a></li>
